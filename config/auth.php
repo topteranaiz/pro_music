@@ -17,6 +17,14 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
+    'bands' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Band::class,
+    ],
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => App\User::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -46,6 +54,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'band' => [
+            'driver' => 'session',
+            'provider' => 'bands'
+        ], 
+
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users'
+        ]
     ],
 
     /*
@@ -75,6 +93,15 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'bands' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Band::class,
+        ],
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\User::class,
+        ],
     ],
 
     /*

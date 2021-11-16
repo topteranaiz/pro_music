@@ -14,19 +14,22 @@
                                 @if(isset($edit))
                                     <input type="hidden" name="id" value="{{$edit->id}}">
                                 @endif
-								<div class="form-group">
-									<label for="first-name">ประเภทงานที่รับ</label>
-									<select name="master_type_product_id">
-                                        <option value="">กรุณาเลือก</option>
-                                        @foreach ($masterType as $item)
-											<option {{ isset($edit) && $edit->master_type_product_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->title }}</option>
-                                        @endforeach
-                                    </select>
+								<div id="dynamicfile">
+									<div class="form-group">
+										<label for="first-name">ประเภทงานที่รับ</label>
+										<select name="type_work_id" required class="w-100 form-control mt-lg-1 mt-md-2">
+											<option value="">กรุณาเลือก</option>
+											@foreach ($masterType as $item)
+												<option {{ isset($edit) && $edit->type_work_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name_work }}</option>
+											@endforeach
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="first-name">ราคา</label>
+										<input type="text" required class="form-control" name="price" value="{{ isset($edit) ? $edit->price: "" }}">
+									</div>
 								</div>
                                 <div class="row">
-                                    <div class="col-lg-3">
-                                        <a href="/home" type="button" class="btn btn-danger d-block mt-2">Cancel</a>
-                                    </div>
                                     <div class="col-lg-3">
                                         <button type="submit" class="btn btn-primary d-block mt-2">Submit</button>
                                     </div>

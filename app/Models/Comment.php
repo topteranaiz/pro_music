@@ -3,13 +3,16 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-Class MasterTypeMusic extends Model
+
+Class Comment extends Model
 {
-    protected $table = 'tb_master_type_music';
+    protected $table = 'comment';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'title',
+        'job_id',
+        'comment',
+        'user_id',
     ];
 }

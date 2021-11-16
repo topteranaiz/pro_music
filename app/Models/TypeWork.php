@@ -3,14 +3,13 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-Class MusicEmbed extends Model
+Class TypeWork extends Model
 {
-    protected $table = 'tb_music_embed';
+    protected $table = 'type_work';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'embed',
-        'music_id',
+        'name_work',
     ];
 }

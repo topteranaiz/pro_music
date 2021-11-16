@@ -77,29 +77,30 @@
 @endsection --}}
 @extends('template.master')
 @section('content')
-<section class="login py-5 border-top-1 bg-body">
+<section class="login py-5 border-top-1">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-5 col-md-8 align-item-center">
                 <div class="border border">
                     <h3 class="bg-gray p-4">Register Now</h3>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('store.register') }}">
                         @csrf
                         <fieldset class="text-center p-4">
+                            <div class="row px-4">
+                                <div class=" mr-lg-4 my-2 rounded">
+                                    <input type="radio" name="type_personal_id" value="1" id="personal">
+                                    <label for="personal" class="py-2">นักดนตรี</label>
+                                </div>
+                                <div class=" mr-lg-4 my-2 rounded ">
+                                    <input type="radio" name="type_personal_id" value="2" id="business">
+                                    <label for="business" class="py-2">สมาชิก</label>
+                                </div>
+                            </div>
                             <input type="text" placeholder="Name*" required name="name" class="border p-3 w-100 my-2">
-                            <input type="email" placeholder="Email*" required name="email" class="border p-3 w-100 my-2">
+                            <input type="text" placeholder="Username*" required name="username" class="border p-3 w-100 my-2">
                             <input type="password" name="password" required placeholder="Password*" class="border p-3 w-100 my-2">
                             {{-- <input type="password" name="password_confirmation" placeholder="Confirm Password*" class="border p-3 w-100 my-2"> --}}
-                            <div class="row px-4">
-                              <div class=" mr-lg-4 my-2 rounded">
-                                  <input type="radio" name="type_personal_id" value="1" id="personal">
-                                  <label for="personal" class="py-2">นักดนตรี</label>
-                              </div>
-                              <div class=" mr-lg-4 my-2 rounded ">
-                                  <input type="radio" name="type_personal_id" value="2" id="business">
-                                  <label for="business" class="py-2">สมาชิก</label>
-                              </div>
-                            </div>
+                            
                             <!-- <div class="loggedin-forgot d-inline-flex my-3">
                                     <input type="checkbox" id="registering" class="mt-1">
                                     <label for="registering" class="px-2">By registering, you accept our <a class="text-primary font-weight-bold" href="terms-condition.html">Terms & Conditions</a></label>

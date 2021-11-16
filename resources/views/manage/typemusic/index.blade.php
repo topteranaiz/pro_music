@@ -14,7 +14,7 @@
 						<thead>
 							<tr>
 								<th class="text-center">ประเภทงานที่รับ</th>
-								<th class="text-center">วันที่สร้าง</th>
+								<th class="text-center">ราคา</th>
 								<th class="text-center">Action</th>
 							</tr>
 						</thead>
@@ -22,9 +22,11 @@
 							@foreach ($dataTypeMusics as $item)
 								<tr>
 									<td class="product-category">
-										<span class="categories">{{ $item->getMasterType->title }}</span>
+										<span class="categories">{{ $item->getTypeWork->name_work }}</span>
 									</td>
-									<td class="product-category"><span class="categories">{{ $item->created_at }}</span></td>
+									<td class="product-category">
+										<span class="categories">{{ $item->price }}</span>
+									</td>
 									<td class="action" data-title="Action">
 										<div class="">
 											<ul class="list-inline justify-content-center">

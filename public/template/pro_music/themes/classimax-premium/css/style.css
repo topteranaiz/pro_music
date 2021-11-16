@@ -720,6 +720,13 @@ ul.pagination .active a {
   display: inline-block;
 }
 
+.delete-button {
+  background: red;
+  color: #fff;
+  padding: 8px 20px !important;
+  display: inline-block;
+}
+
 .add-button:hover {
   color: #fff;
 }

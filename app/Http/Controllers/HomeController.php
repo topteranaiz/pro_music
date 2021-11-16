@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\TypeMusic;
+use App\Models\TypeMusicJoin;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -17,7 +17,8 @@ class HomeController extends Controller
     {
         // $this->middleware('auth');
         $this->middleware(function ($request, $next) {
-            $this->user = Auth::user();
+            // $this->user = Auth::user();
+            $this->user = session()->get('data');
             return $next($request);
         });
     }
@@ -27,9 +28,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(TypeMusic $typeMusic)
+    public function index(TypeMusicJoin $join)
     {
-        $this->data['dataTypeMusics'] = $typeMusic->where('created_by', $this->user->id)->get();
+        $this->data['dataTypeMusics'] = $join->where('band_id', $this->user->band_id)->get();
 
         return view('manage.typemusic.index', $this->data);
     }

@@ -27,9 +27,9 @@
                                     </div>
 								@endif
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    {{-- <div class="col-lg-3">
                                         <a href="/music/image" type="button" class="btn btn-danger d-block mt-2">Cancel</a>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-3">
                                         <button type="submit" class="btn btn-primary d-block mt-2">Submit</button>
                                     </div>

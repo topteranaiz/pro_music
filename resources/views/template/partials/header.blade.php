@@ -13,19 +13,18 @@
 								<a class="nav-link" href="/"><i class="fa fa-music"></i><b>&nbsp;Home</b></a>
 							</li>
 
-							<li class="nav-item" @guest ? style="display: none;" : style="display: block;" @endguest>
+							<li class="nav-item" @if(empty(Session::get('data'))) ? style="display: none;" : style="display: block;" @endif>
 								<a class="nav-link" href="{{ route('home') }}"><i class="fa fa-info"></i><b>&nbsp;Profile</b></a>
 							</li>
 
 						</ul>
-						@guest
-						<ul class="navbar-nav ml-auto mt-10">
-							<li class="nav-item">
-								<a href="{{ route('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a>
-							</li>
-						</ul>
+						@if(empty(Session::get('data')))
+							<ul class="navbar-nav ml-auto mt-10">
+								<li class="nav-item">
+									<a href="{{ route('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Login</a>
+								</li>
+							</ul>
 						@else
-
 							<ul class="navbar-nav ml-auto mt-10">
 								<li class="nav-item">
 									<a onclick="event.preventDefault();
@@ -36,7 +35,7 @@
 								@csrf
 							</form>
 
-						@endguest
+						@endif
 					</div>
 				</nav>
 			</div>

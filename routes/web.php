@@ -36,7 +36,9 @@ Route::get('/music-detail/3', function () {
     // return view('auth.login');
 });
 
-
+Route::post('frontend-register', 'LoginController@storeRegister')->name('store.register');
+Route::post('frontend-login', 'LoginController@postLogin')->name('post.login');
+Route::get('frontend-logout', 'LoginController@getLogout')->name('get.logout');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
@@ -68,8 +70,12 @@ Route::group(['prefix' => 'music'], function() {
 
 });
 
-Route::get('/profile/edit/{id}', 'ProfileController@edit')->name('profile.edit');
-Route::post('/profile/update', 'ProfileController@update')->name('profile.update');
+Route::get('/profile/edit/band/{id}', 'ProfileController@editBand')->name('profile.edit.band');
+Route::get('/profile/edit/user/{id}', 'ProfileController@editUser')->name('profile.edit.user');
+
+Route::post('/profile/update/band', 'ProfileController@updateBand')->name('profile.update.band');
+Route::post('/profile/update/user', 'ProfileController@updateUser')->name('profile.update.user');
+
 
 
 

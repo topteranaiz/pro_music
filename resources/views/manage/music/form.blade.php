@@ -45,22 +45,23 @@
                                 <hr> --}}
                                 @if(isset($edit) && count($edit->getMusicEmbed) > 0)
 									@foreach ($edit->getMusicEmbed as $key => $item)
-                                    {{-- {{ dd($item->embed) }} --}}
+                                    {{-- {{ dd($item) }} --}}
 										<div class="form-group">
 											<label for="first-name">Embed{{$key+1}}</label>
 											{{-- <img src="{{ asset($item->path) }}" alt="" width="100%"> --}}
                                             {{-- <embed value="<iframe width="560" height="315" src="https://www.youtube.com/embed/bGwgWhxtgLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>"> --}}
-                                            <iframe src="{{ $item->embed }}" height="200" width="100%" title="Iframe Example"></iframe>
+                                            <iframe src="{{ $item->link }}" height="200" width="100%" title="Iframe Example"></iframe>
                                             <div class="">
-												<a href="{{ route('music.deleteEmbed',[$item->id]) }}" type="button" class="btn btn-danger d-block mt-2">ลบEmbed</a>
+												{{-- <a href="{{ route('music.deleteEmbed',[$item->id]) }}" type="button" class="btn btn-danger d-block mt-2">ลบEmbed</a> --}}
+												<a class="nav-link text-white delete-button" href="{{ route('music.deleteEmbed',[$item->id]) }}">ลบEmbed</a>
 											</div>
 										</div>
 									@endforeach
 								@endif
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    {{-- <div class="col-lg-3">
                                         <a href="/music" type="button" class="btn btn-danger d-block mt-2">Cancel</a>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-3">
                                         <button type="submit" class="btn btn-primary d-block mt-2">Submit</button>
                                     </div>

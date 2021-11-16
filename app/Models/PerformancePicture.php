@@ -3,14 +3,14 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-Class MusicAttachment extends Model
+Class PerformancePicture extends Model
 {
-    protected $table = 'tb_music_attachment';
+    protected $table = 'performance_picture';
     protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
         'path',
-        'created_by'
+        'band_id'
     ];
 }
