@@ -36,10 +36,13 @@
                     <li>
                         <a href="{{ route('music.image.index') }}"><i class="fa fa-file-archive-o"></i>รูปภาพ</a>
                     </li>
+                    <li>
+                        <a href="{{ route('job.index.band') }}"><i class="fa fa-file-archive-o"></i>รายการที่จ้างงาน</a>
+                    </li>
                 </ul>
             @else
             <ul>
-                <li><a href="#"><i class="fa fa-user"></i>รายการที่จ้างงาน</a></li>
+                <li><a href="{{ route('job.index.user') }}"><i class="fa fa-user"></i>รายการที่จ้างงาน</a></li>
             </ul>
             @endif
         </div>

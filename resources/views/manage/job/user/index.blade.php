@@ -7,7 +7,7 @@
 			<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
 				<div class="widget dashboard-container my-adslist">
 					<h3 class="widget-header">
-						<a class="nav-link text-white add-button" href="{{ route('typemusic.create') }}"><i class="fa fa-plus-circle"></i> เพิ่มประเภทงานที่รับ</a>
+						รายการที่จ้างงาน
 					</h3>
 
 					<table class="table table-responsive product-dashboard-table">
@@ -15,23 +15,31 @@
 							<tr>
 								<th class="text-center">ประเภทงานที่รับ</th>
 								<th class="text-center">ราคา</th>
+								<th class="text-center">วันที่</th>
 								<th class="text-center">รายละเอียด</th>
-								<th class="text-center">Action</th>
+								<th class="text-center">สถานะ</th>
+								{{-- <th class="text-center">Action</th> --}}
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($dataTypeMusics as $item)
+							@foreach ($jobs as $item)
 								<tr>
 									<td class="product-category">
-										<span class="categories">{{ $item->getTypeWork->name_work }}</span>
+										<span class="categories">{{ $item->getTypeMusicJoin->getTypeWork->name_work }}</span>
+									</td>
+                                    <td class="product-category">
+										<span class="categories">{{ $item->getTypeMusicJoin->price }}</span>
 									</td>
 									<td class="product-category">
-										<span class="categories">{{ $item->price }}</span>
+										<span class="categories">{{ $item->date }}</span>
 									</td>
 									<td class="product-category">
 										<span class="categories">{{ !empty($item->detail) ? $item->detail: '-' }}</span>
 									</td>
-									<td class="action" data-title="Action">
+                                    <td class="product-category">
+										<span class="categories">{{ $item->getStatus->status_name }}</span>
+									</td>
+									{{-- <td class="action" data-title="Action">
 										<div class="">
 											<ul class="list-inline justify-content-center">
 												<li class="list-inline-item">
@@ -46,7 +54,7 @@
 												</li>
 											</ul>
 										</div>
-									</td>
+									</td> --}}
 								</tr>
 							@endforeach
 						</tbody>

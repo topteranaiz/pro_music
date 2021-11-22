@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Music;
 use App\Models\MusicAttachment;
+use App\Models\Job;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -68,5 +69,9 @@ class User extends Authenticatable
         }else {
             return '-';
         }
+    }
+
+    public function getJob() {
+        return $this->hasMany(Job::class, 'user_id', 'user_id');
     }
 }

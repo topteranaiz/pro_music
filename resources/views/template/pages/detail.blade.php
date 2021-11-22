@@ -1,10 +1,25 @@
 @extends('template.master')
 @section('content')
 <section class="section bg-gray">
+	{{-- {{ dd(Auth::guard('user')->user()->getJob) }} --}}
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="product-details">
+					@if (\Session::has('error'))
+						<div class="alert alert-danger">
+							<ul>
+								<li>{!! \Session::get('error') !!}</li>
+							</ul>
+						</div>
+					@endif
+					@if (\Session::has('success'))
+						<div class="alert alert-success">
+							<ul>
+								<li>{!! \Session::get('success') !!}</li>
+							</ul>
+						</div>
+					@endif
 					<h1 class="product-title">{{ $detail->band_name }}</h1>
 					<div class="product-meta">
 						<ul class="list-inline">
@@ -43,11 +58,23 @@
 								<a class="nav-link" id="pills-typemusic-tab" data-toggle="pill" href="#pills-typemusic" role="tab" aria-controls="pills-typemusic"
 								 aria-selected="false">รายละเอียดการรับงาน</a>
 							</li>
+							@if(!empty(Auth::guard('user')->user()))
+								<li class="nav-item">
+									<a class="nav-link" id="pills-comment-tab" data-toggle="pill" href="#pills-comment" role="tab" aria-controls="pills-comment"
+									aria-selected="false">จ้างวงดนตรี</a>
+								</li>
+								@if(count(Auth::guard('user')->user()->getJob) > 0)
+									<li class="nav-item">
+										<a class="nav-link" id="pills-preview-tab" data-toggle="pill" href="#pills-preview" role="tab" aria-controls="pills-preview"
+										aria-selected="false">คอมเม้นวงดนตรี</a>
+									</li>
+								@endif
+							@endif
 						</ul>
 						<div class="tab-content" id="pills-tabContent">
 							<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 								<h3 class="tab-title">รายละเอียดวงดนตรี</h3>
-								<p>{{ $detail->detail }}</p>
+								<p style="font-size:18px;">{{ $detail->detail }}</p>
 							</div>
 							<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 								@foreach ($detail->getMusic as $item)
@@ -79,6 +106,9 @@
 												<div class="col-sm">
 													ราคา
 												</div>
+												<div class="col-sm">
+													รายละเอียด
+												</div>
 											</div>
 											<hr>
 											@foreach ($detail->getTypeMusicJoin as $item)
@@ -89,17 +119,90 @@
 													<div class="col-sm">
 														{{ $item->price }}
 													</div>
+													<div class="col-sm">
+														{{ !empty($item->detail) ? $item->detail: '-' }}
+													</div>
 												</div>
 											@endforeach
-											
-											{{-- <div class="row">
-												<div class="col-sm">
-													งานแต่ง
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pills-comment" role="tabpanel" aria-labelledby="pills-comment-tab">
+								<div class="product-review">
+									<div class="review-submission">
+										<h3 class="tab-title">Submit your review</h3>
+										<div class="review-submit">
+											<form action="{{ route('website.contract') }}" method="POST" class="row">
+												@csrf
+												
+												<input type="hidden" name="band_id" value="{{ $detail->band_id }}">
+												@if(!empty(Auth::guard('user')->user()))
+													<input type="hidden" name="user_id" value="{{ Auth::guard('user')->user()->user_id }}">
+												@endif
+												<div class="col-lg-6">
+													<p>ประเภทงานที่รับ</p>
+													<select class="w-100 form-control mt-lg-1 mt-md-2" required name="type_music_join_id">
+														<option value="">กรุณาเลือก</option>
+														@foreach ($detail->getTypeMusicJoin as $item)
+															<option value="{{ $item->id }}">{{ $item->getTypeWork->name_work }}</option>
+														@endforeach
+													</select>
 												</div>
-												<div class="col-sm">
-													2,000
+												<div class="col-lg-6">
+													<p>วันที่จ้างงาน</p>
+													<input type="date" name="date" required class="form-control">
 												</div>
-											</div> --}}
+												<div class="col-12">
+													<textarea name="detail" id="review" rows="10" class="form-control" placeholder="Message"></textarea>
+												</div>
+												<div class="col-12">
+													<button type="submit" class="btn btn-main">Sumbit</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="pills-preview" role="tabpanel" aria-labelledby="pills-preview-tab">
+								<h3 class="tab-title">คอมเม้นวงดนตรี</h3>
+								<div class="product-review">
+									@foreach ($detail->getComment as $item)
+									{{-- {{ dd($item->getUser->name) }} --}}
+										<div class="media">
+											@if(!empty($item->image))
+												<img src="{{ asset($item->image) }}" alt="avater">
+											@else
+												<img src="{{ asset('/image/profile/default.png') }}" alt="avater">
+											@endif
+											<div class="media-body">
+												<div class="name">
+													<h5>{{ $item->getUser->name }}</h5>
+												</div>
+												<div class="date">
+													<p>{{ $item->created_at }}</p>
+												</div>
+												<div class="review-comment">
+													<p>{{ $item->comment }}</p>
+												</div>
+											</div>
+										</div>
+									@endforeach
+									<div class="review-submission">
+										<div class="review-submit">
+											<form action="{{ route('website.comment') }}" method="POST" class="row">
+												@csrf
+												<input type="hidden" name="band_id" value="{{ $detail->band_id }}">
+												@if(!empty(Auth::guard('user')->user()))
+													<input type="hidden" name="user_id" value="{{ Auth::guard('user')->user()->user_id }}">
+												@endif
+												<div class="col-12">
+													<textarea name="comment" id="review" rows="10" class="form-control" placeholder="Message"></textarea>
+												</div>
+												<div class="col-12">
+													<button type="submit" class="btn btn-main">Sumbit</button>
+												</div>
+											</form>
 										</div>
 									</div>
 								</div>

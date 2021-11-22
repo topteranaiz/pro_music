@@ -21,6 +21,20 @@ class LoginController extends Controller
     public function storeRegister(Request $req, User $user, Band $band) {
         
         $inputs = $req->all();
+
+        $dataBand = $band->where('username', $inputs['username'])->first();
+        $dataUser = $user->where('username', $inputs['username'])->first();
+
+
+        if (!empty($dataBand) || !empty($dataUser)) {
+            return redirect()->back()->withInput()->with('error', 'Username นี้ถูกใช้ไปในระบบแล้ว'); 
+        }
+
+        
+        if ($inputs['password'] != $inputs['confirmed']) {
+            return redirect()->back()->withInput()->with('error', 'รหัสผ่านไม่ตรงกัน'); 
+        }
+
         $inputs['password'] = Hash::make($req->password);
         $inputs['created_at'] = Carbon::now();
 
@@ -42,56 +56,38 @@ class LoginController extends Controller
         $username = $req->username;
         $password = $req->password;
 
-        if ($typePersonal == 1) {
-            $data = $band->where('username', $username)->first();
-
-            if (!empty($data)) {
-                if (!Hash::check($password, $data->password)) {
-                    return Redirect::back()
-                        ->with('warning')
-                        ->withInput();
-                }
-
-                Auth::guard('band')->attempt(['username' => $req->username, 'password' => $req->password]);
-
-                session([
-                    'data' => $data
-                ]);
-
-                return redirect()->route('home');
-
-            } else {
-                return Redirect::back()
-                    ->with('warning')
-                    ->withInput();
-            }
-            
-        }else {
-            $data = $user->where('username', $username)->first();
-
-            if (!empty($data)) {
-                if (!Hash::check($password, $data->password)) {
-                    return Redirect::back()
-                        ->with('warning')
-                        ->withInput();
-                }
-
-                Auth::guard('user')->attempt(['username' => $req->username, 'password' => $req->password]);
-
-                session([
-                    'data' => $data
-                ]);
-
-                return redirect('/');
-
-            } else {
-                return Redirect::back()
-                    ->with('warning')
-                    ->withInput();
-            }
-
+        $dataBand = $band->where('username', $username)->first();
+        $dataUser = $user->where('username', $username)->first();
+        
+        if (empty($dataBand) && empty($dataUser)) {
+            return redirect()->back()->with('error', 'ไม่สามารถเข้าสู่ระบบได้ เนื่องจากข้อมูลผิดพลาด'); 
         }
 
+        if (!empty($dataBand)) {
+            if (!Hash::check($password, $dataBand->password)) {
+                return redirect()->back()->withInput()->with('error', 'ไม่สามารถเข้าสู่ระบบได้ เนื่องจากรหัสผ่านไม่ถูกต้อง'); 
+            }
+
+            Auth::guard('band')->attempt(['username' => $req->username, 'password' => $req->password]);
+
+            session([
+                'data' => $dataBand
+            ]);
+
+            return redirect()->route('home');
+        }else if(!empty($dataUser)) {
+            if (!Hash::check($password, $dataUser->password)) {
+                return redirect()->back()->withInput()->with('error', 'ไม่สามารถเข้าสู่ระบบได้ เนื่องจากรหัสผ่านไม่ถูกต้อง'); 
+            }
+
+            Auth::guard('user')->attempt(['username' => $req->username, 'password' => $req->password]);
+
+            session([
+                'data' => $dataUser
+            ]);
+
+            return redirect('/');
+        }
     }
 
     public function getLogout() {

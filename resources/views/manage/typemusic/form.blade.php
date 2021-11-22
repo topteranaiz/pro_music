@@ -28,6 +28,10 @@
 										<label for="first-name">ราคา</label>
 										<input type="text" required class="form-control" name="price" value="{{ isset($edit) ? $edit->price: "" }}">
 									</div>
+									<div class="form-group">
+										<label for="first-name">รายละเอียด</label>
+										<input type="text" class="form-control" name="detail" value="{{ isset($edit) ? $edit->detail: "" }}">
+									</div>
 								</div>
                                 <div class="row">
                                     <div class="col-lg-3">

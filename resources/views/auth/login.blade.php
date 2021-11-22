@@ -81,18 +81,15 @@
                     <h3 class="bg-gray p-4">Login Now</h3>
                     <form method="POST" action="{{ route('post.login') }}">
                         @csrf
-                        <fieldset class="text-center p-4">
-                            <div class="row px-4">
-                                <div class=" mr-lg-4 my-2 rounded">
-                                    <input type="radio" name="type_personal_id" value="1" id="personal">
-                                    <label for="personal" class="py-2">นักดนตรี</label>
-                                </div>
-                                <div class=" mr-lg-4 my-2 rounded ">
-                                    <input type="radio" name="type_personal_id" value="2" id="business">
-                                    <label for="business" class="py-2">สมาชิก</label>
-                                </div>
+                        @if (\Session::has('error'))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <li>{!! \Session::get('error') !!}</li>
+                                </ul>
                             </div>
-                            <input type="text" required placeholder="Username" name="username" class="border p-3 w-100 my-2">
+                        @endif
+                        <fieldset class="text-center p-4">
+                            <input type="text" value="{{ old('username') }}" required placeholder="Username" name="username" class="border p-3 w-100 my-2">
                             <input type="password" required placeholder="Password" name="password" class="border p-3 w-100 my-2">
                             <button type="submit" class="py-3 px-5 bg-success text-white border-0 rounded font-weight-bold mt-3">Log in</button>
                             <!-- <a class="mt-3 d-block  text-primary" href="#">Forget Password?</a> -->

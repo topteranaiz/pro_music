@@ -31,7 +31,7 @@ class TypeMusicController extends Controller
 
     public function store(Request $req, TypeMusicJoin $join) {
 
-        $inputs = $req->only('type_work_id', 'price');
+        $inputs = $req->only('type_work_id', 'price', 'detail');
         $inputs['band_id'] = $this->user->band_id;
 
         $join->create($inputs);
@@ -49,7 +49,7 @@ class TypeMusicController extends Controller
 
     public function update(Request $req, TypeMusicJoin $join) {
 
-        $inputs = $req->only('type_work_id', 'price');
+        $inputs = $req->only('type_work_id', 'price', 'detail');
         $id = $req->id;
 
         $data = $join->find($id);

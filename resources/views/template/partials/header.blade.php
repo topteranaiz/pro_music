@@ -13,9 +13,15 @@
 								<a class="nav-link" href="/"><i class="fa fa-music"></i><b>&nbsp;Home</b></a>
 							</li>
 
-							<li class="nav-item" @if(empty(Session::get('data'))) ? style="display: none;" : style="display: block;" @endif>
-								<a class="nav-link" href="{{ route('home') }}"><i class="fa fa-info"></i><b>&nbsp;Profile</b></a>
-							</li>
+							@if(!empty(Auth::guard('band')->user()))
+								<li class="nav-item">
+									<a class="nav-link" href="{{ route('home') }}"><i class="fa fa-info"></i><b>&nbsp;Profile</b></a>
+								</li>
+							@elseif(!empty(Auth::guard('user')->user()))
+								<li class="nav-item">
+									<a class="nav-link" href="{{ route('job.index.user') }}"><i class="fa fa-info"></i><b>&nbsp;Profile</b></a>
+								</li>
+							@endif
 
 						</ul>
 						@if(empty(Session::get('data')))

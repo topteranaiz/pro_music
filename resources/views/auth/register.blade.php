@@ -85,6 +85,13 @@
                     <h3 class="bg-gray p-4">Register Now</h3>
                     <form method="POST" action="{{ route('store.register') }}">
                         @csrf
+                        @if (\Session::has('error'))
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <li>{!! \Session::get('error') !!}</li>
+                                </ul>
+                            </div>
+                        @endif
                         <fieldset class="text-center p-4">
                             <div class="row px-4">
                                 <div class=" mr-lg-4 my-2 rounded">
@@ -96,9 +103,10 @@
                                     <label for="business" class="py-2">สมาชิก</label>
                                 </div>
                             </div>
-                            <input type="text" placeholder="Name*" required name="name" class="border p-3 w-100 my-2">
-                            <input type="text" placeholder="Username*" required name="username" class="border p-3 w-100 my-2">
+                            <input type="text" placeholder="Name*" value="{{ old('name') }}" required name="name" class="border p-3 w-100 my-2">
+                            <input type="text" placeholder="Username*" value="{{ old('username') }}" required name="username" class="border p-3 w-100 my-2">
                             <input type="password" name="password" required placeholder="Password*" class="border p-3 w-100 my-2">
+                            <input type="password" name="confirmed" required placeholder="Confirmed*" class="border p-3 w-100 my-2">
                             {{-- <input type="password" name="password_confirmation" placeholder="Confirm Password*" class="border p-3 w-100 my-2"> --}}
                             
                             <!-- <div class="loggedin-forgot d-inline-flex my-3">

@@ -18,23 +18,10 @@
 
 Route::get('/', 'WebsiteController@index')->name('website.main');
 Route::get('/detail/{id}', 'WebsiteController@detail')->name('website.detail');
+Route::post('/contract', 'WebsiteController@contract')->name('website.contract');
+Route::post('/comment', 'WebsiteController@storeComment')->name('website.comment');
 
 
-
-Route::get('/music-detail/1', function () {
-    return view('template.pages.detail');
-    // return view('auth.login');
-});
-
-Route::get('/music-detail/2', function () {
-    return view('template.pages.detail2');
-    // return view('auth.login');
-});
-
-Route::get('/music-detail/3', function () {
-    return view('template.pages.detail3');
-    // return view('auth.login');
-});
 
 Route::post('frontend-register', 'LoginController@storeRegister')->name('store.register');
 Route::post('frontend-login', 'LoginController@postLogin')->name('post.login');
@@ -68,6 +55,15 @@ Route::group(['prefix' => 'music'], function() {
     Route::post('/image/update','MusicController@updateImage')->name('music.image.update');
     Route::get('/image/delete/{id}','MusicController@deleteMusicImage')->name('music.image.delete');
 
+});
+
+Route::group(['prefix' => 'job'], function() {
+    Route::get('/user','JobController@indexUser')->name('job.index.user');
+    Route::get('/admin','JobController@indexBand')->name('job.index.band');
+    Route::get('/admin/edit/{id}','JobController@editBand')->name('job.edit.band');
+    Route::post('/admin/updateStatus','JobController@updateStatusBand')->name('job.updateStatus.band');
+
+    // Route::get('/admin','JobController@indexBand')->name('job.index.band');
 });
 
 Route::get('/profile/edit/band/{id}', 'ProfileController@editBand')->name('profile.edit.band');

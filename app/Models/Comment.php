@@ -2,7 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-
+use App\User;
 
 Class Comment extends Model
 {
@@ -11,8 +11,13 @@ Class Comment extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'job_id',
+        'band_id',
         'comment',
         'user_id',
+        'created_at'
     ];
+
+    public function getUser() {
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
+    }
 }

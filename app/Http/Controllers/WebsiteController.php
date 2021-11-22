@@ -8,6 +8,9 @@ use App\Models\Music;
 use Carbon\Carbon;
 use App\Models\Province;
 use App\Models\Band;
+use App\Models\Comment;
+use App\Models\Job;
+
 use App\Models\MasterTypeMusic;
 use App\User;
 
@@ -45,5 +48,29 @@ class WebsiteController extends Controller
         $this->data['detail'] = $band->find($id);
 
         return view('template.pages.detail', $this->data);
+    }
+
+    public function contract(Request $req, Job $job) {
+
+        $inputs = $req->only('band_id', 'user_id', 'date', 'type_music_join_id', 'detail');
+        $inputs['status'] = 1;
+        $dataJob = $job->where('band_id', $inputs['band_id'])->where('date', $inputs['date'])->first();
+
+        if (!empty($dataJob)) {
+            return redirect()->back()->withInput()->with('error', 'คิวงานสำหรับวันที่ '.$inputs['date'].' ไม่ว่าง'); 
+        }
+
+        $job->create($inputs);
+        return redirect()->back()->withInput()->with('success', 'บันทึกเรียบร้อยแล้ว'); 
+    }
+
+    public function storeComment(Comment $comment, Request $req) {
+
+        $inputs = $req->only('user_id', 'band_id', 'comment');
+
+        $inputs['created_at'] = Carbon::now();
+        $comment->create($inputs);
+
+        return redirect()->back()->withInput()->with('success', 'บันทึกเรียบร้อยแล้ว'); 
     }
 }
