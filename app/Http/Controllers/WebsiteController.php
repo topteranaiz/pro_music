@@ -22,7 +22,7 @@ class WebsiteController extends Controller
 
         //ค้นหาชื่อวงดนตรี
         if (isset($inputs['name'])) {
-            $band = $band->where('band_name','LIKE','%' . trim($inputs['band_name']) . '%');
+            $band = $band->where('band_name','LIKE','%' . trim($inputs['name']) . '%');
 
         }
 
