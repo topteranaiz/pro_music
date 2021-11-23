@@ -25,10 +25,10 @@
 							@foreach ($jobs as $item)
 								<tr>
 									<td class="product-category">
-										<span class="categories">{{ $item->getTypeMusicJoin->getTypeWork->name_work }}</span>
+										<span class="categories">{{ !empty($item->getTypeMusicJoin) ? $item->getTypeMusicJoin->getTypeWork->name_work: '-' }}</span>
 									</td>
                                     <td class="product-category">
-										<span class="categories">{{ $item->getTypeMusicJoin->price }}</span>
+										<span class="categories">{{ !empty($item->getTypeMusicJoin) ? $item->getTypeMusicJoin->price: '-' }}</span>
 									</td>
 									<td class="product-category">
 										<span class="categories">{{ $item->date }}</span>

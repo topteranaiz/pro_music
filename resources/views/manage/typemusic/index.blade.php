@@ -39,11 +39,13 @@
 														<i class="fa fa-pencil"></i>
 													</a>
 												</li>
+												@if(count($item->getJob) <= 0)
 												<li class="list-inline-item">
 													<a data-toggle="tooltip" data-placement="top" title="Delete" class="delete" href="{{ route('typemusic.delete',$item->id) }}">
 														<i class="fa fa-trash"></i>
 													</a>
 												</li>
+												@endif
 											</ul>
 										</div>
 									</td>
