@@ -18,7 +18,7 @@
 								<th class="text-center">วันที่</th>
 								<th class="text-center">รายละเอียด</th>
 								<th class="text-center">สถานะ</th>
-								{{-- <th class="text-center">Action</th> --}}
+								<th class="text-center">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -39,22 +39,22 @@
                                     <td class="product-category">
 										<span class="categories">{{ $item->getStatus->status_name }}</span>
 									</td>
-									{{-- <td class="action" data-title="Action">
+									<td class="action" data-title="Action">
 										<div class="">
 											<ul class="list-inline justify-content-center">
-												<li class="list-inline-item">
+												{{-- <li class="list-inline-item">
 													<a data-toggle="tooltip" data-placement="top" title="Edit" class="edit" href="{{ route('typemusic.edit',[$item->id]) }}">
 														<i class="fa fa-pencil"></i>
 													</a>
-												</li>
+												</li> --}}
 												<li class="list-inline-item">
-													<a data-toggle="tooltip" data-placement="top" title="Delete" class="delete" href="{{ route('typemusic.delete',$item->id) }}">
+													<a data-toggle="tooltip" data-placement="top" title="Delete" class="delete" href="{{ route('job.deleteJobUser',$item->id) }}">
 														<i class="fa fa-trash"></i>
 													</a>
 												</li>
 											</ul>
 										</div>
-									</td> --}}
+									</td>
 								</tr>
 							@endforeach
 						</tbody>

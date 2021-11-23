@@ -62,6 +62,7 @@ Route::group(['prefix' => 'job'], function() {
     Route::get('/admin','JobController@indexBand')->name('job.index.band');
     Route::get('/admin/edit/{id}','JobController@editBand')->name('job.edit.band');
     Route::post('/admin/updateStatus','JobController@updateStatusBand')->name('job.updateStatus.band');
+    Route::get('/delete/{id}','JobController@deleteJobUser')->name('job.deleteJobUser');
 
     // Route::get('/admin','JobController@indexBand')->name('job.index.band');
 });

@@ -55,4 +55,14 @@ class JobController extends Controller
 
         return redirect('job/admin');
     }
+
+    public function deleteJobUser($id, Job $job) {
+
+        if ($id) {
+            $data = $job->find($id);
+            $data->delete();
+        }
+
+        return redirect('/job/user');
+    }
 }
