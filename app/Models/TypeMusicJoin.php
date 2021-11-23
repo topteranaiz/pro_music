@@ -14,6 +14,7 @@ Class TypeMusicJoin extends Model
         'type_work_id',
         'band_id',
         'price',
+        'detail'
     ];
 
     public function getTypeWork() {

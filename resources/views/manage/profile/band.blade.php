@@ -21,7 +21,7 @@
 								</div>
 								<div class="form-group">
 									<label for="last-name">Username</label>
-									<input type="text" value="{{ isset($edit) ? $edit->username: "" }}" name="username" class="form-control">
+									<input type="text" value="{{ isset($edit) ? $edit->username: "" }}" readonly name="username" class="form-control">
 								</div>
 
 								<div class="form-group">
