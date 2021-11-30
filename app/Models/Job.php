@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TypeMusicJoin;
 use App\Models\Status;
-
+use App\Models\Band;
 
 Class Job extends Model
 {
@@ -27,5 +27,9 @@ Class Job extends Model
 
     public function getStatus() {
         return $this->belongsTo(Status::class, 'status', 'status_id');
+    }
+
+    public function getBand() {
+        return $this->belongsTo(Band::class, 'band_id', 'band_id');
     }
 }

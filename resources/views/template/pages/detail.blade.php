@@ -1,6 +1,6 @@
 @extends('template.master')
 @section('content')
-<section class="section bg-gray">
+{{-- <section class="section bg-gray"> --}}
 	{{-- {{ dd(Auth::guard('user')->user()->getJob) }} --}}
 	<div class="container">
 		<div class="row">
@@ -32,19 +32,20 @@
 						<div class="product-slider">
 							@foreach ($detail->getMusicAttachment as $key => $item)
 								@if($key == 0)
-									<div class="product-slider-item my-4" width="200" height="600" data-image="{{ asset($item->path) }}">
-										<img class="w-100" width="200" height="600" src="{{ asset($item->path) }}" alt="product-img">
+									<div class="product-slider-item my-4" width="50%" height="300" data-image="{{ asset($item->path) }}">
+										<img class="w-100" width="50%" height="300" src="{{ asset($item->path) }}" alt="product-img">
 									</div>
 								@else
-									<div class="product-slider-item my-4" width="200" height="600" data-image="{{ asset($item->path) }}">
-										<img class="d-block w-100" width="200" height="600" src="{{ asset($item->path) }}" alt="Second slide">
+									<div class="product-slider-item my-4" width="100" height="300" data-image="{{ asset($item->path) }}">
+										<img class="d-block w-100" width="100" height="300" src="{{ asset($item->path) }}" alt="Second slide">
 									</div>
 								@endif
 							@endforeach
 						</div>
 					@endif
 
-					<div class="content mt-5 pt-5">
+					{{-- <div class="content"> --}}
+					<div>
 						<ul class="nav nav-pills  justify-content-center" id="pills-tab" role="tablist">
 							<li class="nav-item">
 								<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
@@ -63,13 +64,11 @@
 									<a class="nav-link" id="pills-comment-tab" data-toggle="pill" href="#pills-comment" role="tab" aria-controls="pills-comment"
 									aria-selected="false">จ้างวงดนตรี</a>
 								</li>
-								@if(count(Auth::guard('user')->user()->getJob) > 0)
-									<li class="nav-item">
-										<a class="nav-link" id="pills-preview-tab" data-toggle="pill" href="#pills-preview" role="tab" aria-controls="pills-preview"
-										aria-selected="false">คอมเม้นวงดนตรี</a>
-									</li>
-								@endif
 							@endif
+							<li class="nav-item">
+								<a class="nav-link" id="pills-preview-tab" data-toggle="pill" href="#pills-preview" role="tab" aria-controls="pills-preview"
+								aria-selected="false">ความคิดเห็น</a>
+							</li>
 						</ul>
 						<div class="tab-content" id="pills-tabContent">
 							<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
@@ -154,7 +153,7 @@
 													<input type="date" name="date" required class="form-control">
 												</div>
 												<div class="col-12">
-													<textarea name="detail" id="review" rows="10" class="form-control" placeholder="Message"></textarea>
+													<textarea name="detail" id="review" rows="8" class="form-control" placeholder="Message"></textarea>
 												</div>
 												<div class="col-12">
 													<button type="submit" class="btn btn-main">Sumbit</button>
@@ -188,23 +187,27 @@
 											</div>
 										</div>
 									@endforeach
-									<div class="review-submission">
-										<div class="review-submit">
-											<form action="{{ route('website.comment') }}" method="POST" class="row">
-												@csrf
-												<input type="hidden" name="band_id" value="{{ $detail->band_id }}">
-												@if(!empty(Auth::guard('user')->user()))
-													<input type="hidden" name="user_id" value="{{ Auth::guard('user')->user()->user_id }}">
-												@endif
-												<div class="col-12">
-													<textarea name="comment" id="review" rows="10" class="form-control" placeholder="Message"></textarea>
+									@if(!empty(Auth::guard('user')->user()) && count(Auth::guard('user')->user()->getJob) > 0)
+										@if(Auth::guard('user')->user()->getJob[0]->band_id == $detail->band_id)
+											<div class="review-submission">
+												<div class="review-submit">
+													<form action="{{ route('website.comment') }}" method="POST" class="row">
+														@csrf
+														<input type="hidden" name="band_id" value="{{ $detail->band_id }}">
+														@if(!empty(Auth::guard('user')->user()))
+															<input type="hidden" name="user_id" value="{{ Auth::guard('user')->user()->user_id }}">
+														@endif
+														<div class="col-12">
+															<textarea name="comment" id="review" rows="8" class="form-control" placeholder="Message"></textarea>
+														</div>
+														<div class="col-12">
+															<button type="submit" class="btn btn-main">Sumbit</button>
+														</div>
+													</form>
 												</div>
-												<div class="col-12">
-													<button type="submit" class="btn btn-main">Sumbit</button>
-												</div>
-											</form>
-										</div>
-									</div>
+											</div>
+										@endif
+									@endif
 								</div>
 							</div>
 						</div>
@@ -213,5 +216,5 @@
 			</div>
 		</div>
 	</div>
-</section>
+{{-- </section> --}}
 @endsection

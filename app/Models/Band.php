@@ -7,6 +7,8 @@ use App\Models\PerformancePicture;
 use App\Models\Performance;
 use App\Models\TypeMusicJoin;
 use App\Models\Comment;
+use App\Models\Job;
+
 
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,5 +56,9 @@ Class Band extends Authenticatable
 
     public function getComment() {
         return $this->hasMany(Comment::class, 'band_id', 'band_id');
+    }
+
+    public function getJob() {
+        return $this->hasMany(Job::class, 'band_id', 'band_id'); 
     }
 }

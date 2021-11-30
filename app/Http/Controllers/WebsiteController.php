@@ -10,6 +10,8 @@ use App\Models\Province;
 use App\Models\Band;
 use App\Models\Comment;
 use App\Models\Job;
+use App\Models\TypeWork;
+
 
 use App\Models\MasterTypeMusic;
 use App\User;
@@ -17,13 +19,34 @@ use App\User;
 class WebsiteController extends Controller
 {
     //หน้ารายการวงดนตรี
-    public function index(Band $band) {
+    public function index(Band $band, TypeWork $typeWork, Job $job) {
         $inputs = request()->input();
 
         //ค้นหาชื่อวงดนตรี
         if (isset($inputs['name'])) {
             $band = $band->where('band_name','LIKE','%' . trim($inputs['name']) . '%');
+        }
 
+        if(isset($inputs['type_work_id'])) {
+            $typework = $inputs['type_work_id'];
+            $band = $band->whereHas('getTypeMusicJoin', function($query) use($typework) {
+                $query->where('type_work_id', $typework);
+            });
+        }
+
+        if(isset($inputs['date'])) {
+            $date = $inputs['date'];
+            $dataJob = $job->where('date', $date)->pluck('band_id');
+            if (count($dataJob) > 0) {
+                $band = $band->whereNotIn('band_id', [$dataJob]);
+            }
+        }
+
+        if(isset($inputs['price'])) {
+            $price = $inputs['price'];
+            $band = $band->whereHas('getTypeMusicJoin', function($query) use($price) {
+                $query->where('price', $price);
+            });
         }
 
         //ค้นหาประเภทรถแห่
@@ -36,7 +59,7 @@ class WebsiteController extends Controller
             $band = $band->where('area_id',$inputs['area_id']);
         }
 
-        // $this->data['dataMasterType'] = $master->get();
+        $this->data['dataTypeWork'] = $typeWork->get();
         $this->data['dataMusics'] = $band->get();
 
         return view('template.pages.main', $this->data);

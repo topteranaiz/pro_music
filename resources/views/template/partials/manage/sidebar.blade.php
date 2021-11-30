@@ -26,7 +26,7 @@
                 <a href="{{ route('profile.edit.user', [Auth::guard('user')->user()->user_id]) }}" class="btn btn-main-sm">Edit Profile</a>
             @endif
         </div>
-        <div class="widget user-dashboard-menu">
+        {{-- <div class="widget user-dashboard-menu">
             @if(!empty(Auth::guard('band')->user()))
                 <ul>
                     <li><a href="{{ route('home') }}"><i class="fa fa-user"></i>ประเภทรับงาน</a></li>
@@ -45,6 +45,6 @@
                 <li><a href="{{ route('job.index.user') }}"><i class="fa fa-user"></i>รายการที่จ้างงาน</a></li>
             </ul>
             @endif
-        </div>
+        </div> --}}
     </div>
 </div>

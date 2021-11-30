@@ -13,6 +13,7 @@
 					<table class="table table-responsive product-dashboard-table">
 						<thead>
 							<tr>
+								<th class="text-center">วงที่จ้างงาน</th>
 								<th class="text-center">ประเภทงานที่รับ</th>
 								<th class="text-center">ราคา</th>
 								<th class="text-center">วันที่</th>
@@ -24,6 +25,9 @@
 						<tbody>
 							@foreach ($jobs as $item)
 								<tr>
+									<td class="product-category">
+										<span class="categories">{{ !empty($item->getBand->band_name) ? $item->getBand->band_name: '-' }}</span>
+									</td>
 									<td class="product-category">
 										<span class="categories">{{ !empty($item->getTypeMusicJoin) ? $item->getTypeMusicJoin->getTypeWork->name_work: '-' }}</span>
 									</td>

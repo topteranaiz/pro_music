@@ -14,10 +14,10 @@
 							<div class="col-lg-12 col-md-12 align-content-center">
 								<form>
 									<div class="form-row">
-										<div class="form-group col-md-5">
-											<input type="text" class="form-control my-2 my-lg-1" id="inputtext4" name="name" value="{{ request()->input('name') ? request()->input('name') : null }}" placeholder="ค้นหาชื่อวงดนตรี">
+										<div class="form-group col-md-4">
+											<input type="text" class="form-control my-2 my-lg-1" name="name" value="{{ request()->input('name') ? request()->input('name') : null }}" placeholder="ค้นหาชื่อวงดนตรี">
 										</div>
-										<div class="form-group col-md-5">
+										<div class="form-group col-md-4">
 											<select class="w-100 form-control mt-lg-1 mt-md-2" name="area_id">
 												<option value="">ภูมิภาค</option>
 												<option {{ request()->input('area_id') == "1" ? 'selected' : '' }} value="1">ภาคเหนือ</option>
@@ -28,16 +28,25 @@
 												<option {{ request()->input('area_id') == "6" ? 'selected' : '' }} value="6">ภาคใต้</option>
 											</select>
 										</div>
-										{{-- <div class="form-group col-md-3">
-											<select class="w-100 form-control mt-lg-1 mt-md-2" name="type_car_audio">
-												<option value="">ประเภทรถแห่</option>
-												<option {{ request()->input('type_car_audio') == "1" ? 'selected' : '' }} value="1">รถแห่ 6 ล้อขนาดใหญ่ พร้อมให้ความบันเทิงอย่างเต็มรูปแบบแสงสีเสียงขั้นอลังการ</option>
-												<option {{ request()->input('type_car_audio') == "2" ? 'selected' : '' }} value="2">รถแห่เล็ก สนุกได้แบบกระทัดรัด สนุกได้ทุกพื้นที่</option>
-												<option {{ request()->input('type_car_audio') == "3" ? 'selected' : '' }} value="3">ทีมงานน้อยแต่มีคุณภาพพร้อมเสิร์ฟความบันเทิงอย่างสุดเหวี่ยง</option>
+										<div class="form-group col-md-4">
+											<select class="w-100 form-control mt-lg-1 mt-md-2" name="type_work_id">
+												<option value="">กรุณาเลือก</option>
+												@foreach ($dataTypeWork as $item)
+													<option {{ request()->input('type_work_id') == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name_work }}</option>
+												@endforeach
 											</select>
-										</div> --}}
+										</div>
+										<div class="form-group col-md-4">
+											<input type="date" class="form-control my-2 my-lg-1" name="date" value="{{ request()->input('date') ? request()->input('date') : null }}">
+										</div>
+										<div class="form-group col-md-4">
+											<input type="text" class="form-control my-2 my-lg-1" name="price" value="{{ request()->input('price') ? request()->input('price') : null }}" placeholder="ค้นหาราคา">
+										</div>
 										<div class="form-group col-md-2 align-self-center">
 											<button type="submit" class="btn btn-primary">กดค้นหา</button>
+										</div>
+										<div class="form-group col-md-2 align-self-center">
+											<a href="/"><button type="button" class="btn btn-danger">ล้างคำค้นหา</button></a>
 										</div>
 									</div>
 								</form>
