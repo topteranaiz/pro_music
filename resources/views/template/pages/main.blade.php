@@ -39,13 +39,16 @@
 										<div class="form-group col-md-4">
 											<input type="date" class="form-control my-2 my-lg-1" name="date" value="{{ request()->input('date') ? request()->input('date') : null }}">
 										</div>
-										<div class="form-group col-md-4">
-											<input type="text" class="form-control my-2 my-lg-1" name="price" value="{{ request()->input('price') ? request()->input('price') : null }}" placeholder="ค้นหาราคา">
+										<div class="form-group col-md-2">
+											<input type="text" class="form-control my-2 my-lg-1" name="priceStart" value="{{ request()->input('priceStart') ? request()->input('priceStart') : null }}" placeholder="ค้นหาช่วงราคา">
 										</div>
-										<div class="form-group col-md-2 align-self-center">
+										<div class="form-group col-md-2">
+											<input type="text" class="form-control my-2 my-lg-1" name="priceEnd" value="{{ request()->input('priceEnd') ? request()->input('priceEnd') : null }}" placeholder="ถึงราคา">
+										</div>
+										<div class="form-group col-md-2">
 											<button type="submit" class="btn btn-primary">กดค้นหา</button>
 										</div>
-										<div class="form-group col-md-2 align-self-center">
+										<div class="form-group col-md-2">
 											<a href="/"><button type="button" class="btn btn-danger">ล้างคำค้นหา</button></a>
 										</div>
 									</div>

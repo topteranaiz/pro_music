@@ -24,7 +24,12 @@
 					<div class="product-meta">
 						<ul class="list-inline">
 							{{-- <li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Category<a href="">สากล</a></li> --}}
-							<li class="list-inline-item"><i class="fa fa-location-arrow"></i> Location {{ $detail->address }}</li>
+							<li class="list-inline-item"><i class="fa fa-location-arrow"></i> Location: {{ $detail->address }}</li>
+							@if(!empty(Auth::guard('user')->user()) && count(Auth::guard('user')->user()->getJob) > 0)
+								@if(Auth::guard('user')->user()->getJob[0]->band_id == $detail->band_id)
+									<li class="list-inline-item"><i class="fa fa-location-arrow"></i> เบอร์โทรศัพท์: {{ $detail->tel }}</li>
+								@endif
+							@endif
 						</ul>
 					</div>
 

@@ -21,6 +21,8 @@ class WebsiteController extends Controller
     //หน้ารายการวงดนตรี
     public function index(Band $band, TypeWork $typeWork, Job $job) {
         $inputs = request()->input();
+        $priceStart = request()->input('priceStart');
+        $priceEnd = request()->input('priceEnd');
 
         //ค้นหาชื่อวงดนตรี
         if (isset($inputs['name'])) {
@@ -42,10 +44,21 @@ class WebsiteController extends Controller
             }
         }
 
-        if(isset($inputs['price'])) {
-            $price = $inputs['price'];
-            $band = $band->whereHas('getTypeMusicJoin', function($query) use($price) {
-                $query->where('price', $price);
+        if(!empty($priceStart)) {
+            $band = $band->whereHas('getTypeMusicJoin', function($query) use($priceStart) {
+                $query->where('price', '>=',$priceStart);
+            });
+        }
+
+        if(!empty($priceEnd)) {
+            $band = $band->whereHas('getTypeMusicJoin', function($query) use($priceEnd) {
+                $query->where('price', '<=',$priceEnd);
+            });
+        }
+
+        if(!empty($priceStart) && !empty($priceEnd)) {
+            $band = $band->whereHas('getTypeMusicJoin', function($query) use($priceStart, $priceEnd) {
+                $query->whereBetween('price',array($priceStart, $priceEnd));
             });
         }
 
