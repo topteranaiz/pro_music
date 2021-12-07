@@ -40,8 +40,13 @@
 													</a>
 												</li>
 												@if(count($item->getJob) <= 0)
-												<li class="list-inline-item">
+												{{-- <li class="list-inline-item">
 													<a data-toggle="tooltip" data-placement="top" title="Delete" class="delete" href="{{ route('typemusic.delete',$item->id) }}">
+														<i class="fa fa-trash"></i>
+													</a>
+												</li> --}}
+												<li class="list-inline-item">
+													<a data-toggle="tooltip" data-placement="top" title="Delete" class="delete" onclick="alertConfirm({{ $item->id }})">
 														<i class="fa fa-trash"></i>
 													</a>
 												</li>
@@ -54,29 +59,28 @@
 						</tbody>
 					</table>
 				</div>
-				{{-- <div class="pagination justify-content-center">
-					<nav aria-label="Page navigation example">
-						<ul class="pagination">
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Previous">
-									<span aria-hidden="true">&laquo;</span>
-									<span class="sr-only">Previous</span>
-								</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item active"><a class="page-link" href="#">2</a></li>
-							<li class="page-item"><a class="page-link" href="#">3</a></li>
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Next">
-									<span aria-hidden="true">&raquo;</span>
-									<span class="sr-only">Next</span>
-								</a>
-							</li>
-						</ul>
-					</nav>
-				</div> --}}
 			</div>
 		</div>
 	</div>
 </section>
+@endsection
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@section('js')
+    <script>
+        function alertConfirm(id) {
+            Swal.fire({
+            title: 'ยืนยันการลบช้อมูล?',
+            // text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "{{URL::to('type-music/delete')}}"+'/'+id
+                }
+            })
+        }
+    </script>
 @endsection

@@ -51,7 +51,7 @@ Class Band extends Authenticatable
     }
 
     public function getTypeMusicJoin() {
-        return $this->hasMany(TypeMusicJoin::class, 'band_id', 'band_id');
+        return $this->hasMany(TypeMusicJoin::class, 'band_id', 'band_id')->orderBy('price', 'ASC');
     }
 
     public function getComment() {
@@ -61,4 +61,8 @@ Class Band extends Authenticatable
     public function getJob() {
         return $this->hasMany(Job::class, 'band_id', 'band_id'); 
     }
+
+    // public function getJob() {
+    //     return $this->belongsTo(Job::class, 'band_id', 'band_id')->where('status', 2); 
+    // }
 }

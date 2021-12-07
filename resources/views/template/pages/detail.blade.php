@@ -192,8 +192,10 @@
 											</div>
 										</div>
 									@endforeach
-									@if(!empty(Auth::guard('user')->user()) && count(Auth::guard('user')->user()->getJob) > 0)
-										@if(Auth::guard('user')->user()->getJob[0]->band_id == $detail->band_id)
+									{{-- @if(!empty(Auth::guard('user')->user()) && count(Auth::guard('user')->user()->getJob) > 0) --}}
+									@if(!empty(Auth::guard('user')->user()) && !empty(Auth::guard('user')->user()->getJobSuccess))
+										{{-- @if(Auth::guard('user')->user()->getJob[0]->band_id == $detail->band_id) --}}
+										@if(Auth::guard('user')->user()->getJobSuccess->band_id == $detail->band_id)
 											<div class="review-submission">
 												<div class="review-submit">
 													<form action="{{ route('website.comment') }}" method="POST" class="row">
@@ -221,5 +223,8 @@
 			</div>
 		</div>
 	</div>
-{{-- </section> --}}
+	<script type='text/javascript'>
+		var today = new Date().toISOString().split('T')[0];
+		document.getElementsByName("date")[0].setAttribute('min', today);
+	</script>
 @endsection

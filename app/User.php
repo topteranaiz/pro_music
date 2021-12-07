@@ -74,4 +74,8 @@ class User extends Authenticatable
     public function getJob() {
         return $this->hasMany(Job::class, 'user_id', 'user_id');
     }
+
+    public function getJobSuccess() {
+        return $this->belongsTo(Job::class, 'user_id', 'user_id')->where('status', 2); 
+    }
 }
