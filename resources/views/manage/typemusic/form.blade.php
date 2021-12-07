@@ -26,7 +26,7 @@
 									</div>
 									<div class="form-group">
 										<label for="first-name">ราคา</label>
-										<input type="text" required class="form-control" name="price" value="{{ isset($edit) ? $edit->price: "" }}">
+										<input type="text" required class="form-control" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" name="price" value="{{ isset($edit) ? $edit->price: "" }}">
 									</div>
 									<div class="form-group">
 										<label for="first-name">รายละเอียด</label>

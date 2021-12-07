@@ -40,10 +40,10 @@
 											<input type="date" class="form-control my-2 my-lg-1" name="date" value="{{ request()->input('date') ? request()->input('date') : null }}">
 										</div>
 										<div class="form-group col-md-2">
-											<input type="text" class="form-control my-2 my-lg-1" name="priceStart" value="{{ request()->input('priceStart') ? request()->input('priceStart') : null }}" placeholder="ค้นหาช่วงราคา">
+											<input type="text" class="form-control my-2 my-lg-1" name="priceStart" value="{{ request()->input('priceStart') ? request()->input('priceStart') : null }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="ค้นหาช่วงราคา">
 										</div>
 										<div class="form-group col-md-2">
-											<input type="text" class="form-control my-2 my-lg-1" name="priceEnd" value="{{ request()->input('priceEnd') ? request()->input('priceEnd') : null }}" placeholder="ถึงราคา">
+											<input type="text" class="form-control my-2 my-lg-1" name="priceEnd" value="{{ request()->input('priceEnd') ? request()->input('priceEnd') : null }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="ถึงราคา">
 										</div>
 										<div class="form-group col-md-2">
 											<button type="submit" class="btn btn-primary">กดค้นหา</button>
