@@ -31,6 +31,9 @@ class ProfileController extends Controller
         $inputs = $req->only('band_name', 'username', 'address', 'detail', 'tel', 'area_id');
         $id = $req->id;
         if (!empty($req->password)) {
+            if ($req->password != $req->confirmed) {
+                return redirect()->back()->withInput()->with('error', 'รหัสผ่านไม่ตรงกัน'); 
+            }
             $inputs['password'] = Hash::make($req->password);
         }
 
@@ -73,6 +76,9 @@ class ProfileController extends Controller
         $inputs = $req->only('name', 'username', 'address', 'tel');
         $id = $req->id;
         if (!empty($req->password)) {
+            if ($req->password != $req->confirmed) {
+                return redirect()->back()->withInput()->with('error', 'รหัสผ่านไม่ตรงกัน'); 
+            }
             $inputs['password'] = Hash::make($req->password);
         }
 

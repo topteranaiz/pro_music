@@ -30,6 +30,11 @@
 								</div>
 
 								<div class="form-group">
+									<label for="">Confirm Password</label>
+									<input type="password" class="form-control" name="confirmed">
+								</div>
+
+								<div class="form-group">
 									<label for="first-name">ภูมิภาค</label>
 									<select name="area_id" class="w-100">
                                         <option value="">กรุณาเลือก</option>

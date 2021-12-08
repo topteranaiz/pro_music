@@ -30,6 +30,11 @@
 								</div>
 
 								<div class="form-group">
+									<label for="">Confirm Password</label>
+									<input type="password" class="form-control" name="confirmed">
+								</div>
+
+								<div class="form-group">
 									<label for="first-name">ที่อยู่</label>
 									<input type="text" value="{{ isset($edit) ? $edit->address: "" }}" name="address" class="form-control">
 								</div>
